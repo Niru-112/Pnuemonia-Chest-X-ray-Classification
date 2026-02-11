@@ -1,0 +1,19 @@
+name: chest-xray-env
+
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+
+dependencies:
+  - python=3.9
+  - pytorch
+  - torchvision
+  - pip
+  - pip:
+      - mlflow
+      - fastapi
+      - uvicorn
+      - pillow
+      - numpy
+      - scikit-learn
