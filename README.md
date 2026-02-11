@@ -11,9 +11,13 @@ This project builds a deep learning–based image classification system and trac
 Key Highlights
 
 PyTorch-based CNN model (DenseNet)
+
 MLflow experiment tracking
+
 MLflow Projects for reproducible runs
+
 Conda-based environment management
+
 Production-ready project structure
 
 🧠 Tech Stack
