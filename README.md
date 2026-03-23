@@ -1,162 +1,254 @@
-# 🩺 Chest X-ray Pneumonia Detection – MLflow Project
+# 🩺 Chest X-ray Pneumonia Detection — MLflow Project
 
-An end-to-end Machine Learning + MLOps project for detecting Pneumonia from Chest X-ray images using PyTorch and MLflow.
-The project is structured as an MLflow Project to ensure reproducibility, experiment tracking, and model versioning.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white"/>
+  <img src="https://img.shields.io/badge/DenseNet121-grey?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Conda-44A833?style=for-the-badge&logo=anaconda&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Accuracy-96--97%25-brightgreen?style=for-the-badge"/>
+</p>
 
-📌 Project Overview
+<p align="center">
+  <b>End-to-end MLOps pipeline for pneumonia detection from chest X-rays — with full experiment tracking, model versioning, and reproducible runs.</b>
+</p>
 
-Pneumonia is a serious lung infection that can be diagnosed through chest X-ray images.
-This project builds a deep learning–based image classification system and tracks the entire training lifecycle using MLflow.
+---
 
-Key Highlights
+## 📌 Overview
 
-PyTorch-based CNN model (DenseNet)
+**Chest X-ray Pneumonia Detection** is a production-structured **deep learning + MLOps project** that detects pneumonia from chest X-ray images using a **DenseNet121** backbone. The entire training lifecycle — hyperparameters, metrics, and model artifacts — is tracked using **MLflow Projects**, ensuring reproducibility and clean experiment management.
 
-MLflow experiment tracking
+Achieved **~96–97% validation accuracy** on the Chest X-ray dataset (Normal vs. Pneumonia binary classification).
 
-MLflow Projects for reproducible runs
+---
 
-Conda-based environment management
+## ✨ Key Features
 
-Production-ready project structure
+| Feature | Description |
+|---|---|
+| 🏥 **Medical Image Classification** | Binary classification: Normal vs. Pneumonia |
+| 🧠 **DenseNet121 Backbone** | Pretrained CNN with dense skip connections |
+| 🧪 **MLflow Experiment Tracking** | Logs hyperparameters, metrics, and model artifacts per run |
+| 📦 **Reproducible Environment** | Conda-based setup via `MLproject` + `conda.yaml` |
+| 🖥️ **MLflow UI** | Visual dashboard for comparing runs and metrics |
+| 🔁 **One-Command Training** | `mlflow run .` handles setup and training end-to-end |
 
-🧠 Tech Stack
+---
 
-Python
+## 📊 Model Performance
 
-PyTorch
+| Metric | Value |
+|---|---|
+| **Task** | Binary Classification (Normal vs. Pneumonia) |
+| **Backbone** | DenseNet121 |
+| **Validation Accuracy** | ~96–97% |
+| **Loss Function** | Cross-Entropy Loss |
+| **Optimizer** | Adam |
+| **Input Size** | 224 × 224 × 3 |
 
-Torchvision
+---
 
-MLflow
+## 🧠 How It Works
 
-Conda
+```
+Chest X-ray Images (train / val / test)
+            │
+            ▼
+  Data Preprocessing & Augmentation
+  (Resize 224×224, Normalize)
+            │
+            ▼
+   DenseNet121 Feature Extraction
+            │
+            ▼
+     Binary Classification Head
+     (Normal vs. Pneumonia)
+            │
+            ▼
+  MLflow Run Logging
+  ┌─────────────────────────┐
+  │ Parameters: epochs,     │
+  │ batch_size, lr          │
+  │ Metrics: loss, accuracy │
+  │ Artifacts: model.pt     │
+  └─────────────────────────┘
+            │
+            ▼
+     MLflow UI Dashboard
+```
 
-NumPy
+---
 
-OpenCV / PIL
+## 🛠️ Tech Stack
 
-FastAPI (optional – future deployment)
+| Component | Technology |
+|---|---|
+| **Language** | Python 3.8+ |
+| **Deep Learning** | PyTorch, Torchvision |
+| **Model Architecture** | DenseNet121 |
+| **Experiment Tracking** | MLflow |
+| **Environment Management** | Conda |
+| **Image Processing** | OpenCV / PIL, NumPy |
+| **Future Deployment** | FastAPI, Docker |
 
-Docker (optional – future deployment)
+---
 
-📂 Project Structure
+## 📂 Project Structure
 
+```
 chest_xray_mlflow/
 │
-├── train.py               # Model training & MLflow logging
-├── MLproject              # MLflow Project configuration
-├── conda.yaml             # Reproducible Conda environment
-├── requirements.txt       # Python dependencies
-├── data/
-│   ├── train/
-│   ├── val/
-│   └── test/
+├── train.py            # Model training + MLflow logging
+├── MLproject           # MLflow Project configuration
+├── conda.yaml          # Reproducible Conda environment
+├── requirements.txt    # Python dependencies
+├── README.md
 │
-└── README.md
+└── data/
+    ├── train/
+    │   ├── NORMAL/
+    │   └── PNEUMONIA/
+    ├── val/
+    │   ├── NORMAL/
+    │   └── PNEUMONIA/
+    └── test/
+        ├── NORMAL/
+        └── PNEUMONIA/
+```
 
-🚀 How to Run the Project
+---
 
-1️⃣ Create & Activate Conda Environment
+## 📋 MLflow Tracking
 
+The following are automatically logged per training run:
+
+### Parameters
+| Parameter | Description |
+|---|---|
+| `epochs` | Number of training epochs |
+| `batch_size` | Batch size used during training |
+| `learning_rate` | Adam optimizer learning rate |
+
+### Metrics
+| Metric | Description |
+|---|---|
+| `train_loss` | Training loss per epoch |
+| `val_accuracy` | Validation accuracy per epoch |
+
+### Artifacts
+- Trained PyTorch model (`.pt`)
+- Model metadata and configuration
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/nirusanathara/chest-xray-pneumonia.git
+cd chest_xray_mlflow
+```
+
+### 2️⃣ Create & Activate Conda Environment
+```bash
 conda env create -f conda.yaml
 conda activate chest-xray-env
+```
 
-Verify setup:
+### 3️⃣ Verify Setup
+```bash
+python -c "import torch, mlflow; print('Environment Ready ✅')"
+```
 
-python -c "import torch, mlflow; print('Environment Ready')"
+### 4️⃣ Prepare Dataset
+Download the [Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) dataset from Kaggle and place it under `data/`:
+```
+data/
+├── train/
+├── val/
+└── test/
+```
 
-2️⃣ Run Training using MLflow Project
+---
 
+## 🚀 Run Training
+
+### Using MLflow Project (Recommended)
+```bash
 mlflow run . --env-manager=local
+```
 
-This will:
+This will automatically:
+- Start an MLflow experiment run
+- Log all hyperparameters
+- Log training and validation metrics
+- Save the trained model as an MLflow artifact
 
-Start an MLflow run
-
-Log hyperparameters
-
-Log training metrics
-
-Save the trained PyTorch model as an MLflow artifact
-
-3️⃣ Launch MLflow UI
-
+### Launch MLflow UI
+```bash
 mlflow ui
+```
+Open in browser: `http://127.0.0.1:5000`
 
-Open in browser:
-http://127.0.0.1:5000
+In the UI you can:
+- Compare multiple experiment runs side-by-side
+- Visualize training/validation metrics over time
+- Download or register trained model artifacts
 
-You can view:
+---
 
-Experiments
+## 🧪 Model Architecture
 
-Runs
+```
+Input: 224 × 224 × 3 (RGB Chest X-ray)
+        │
+        ▼
+DenseNet121 (pretrained on ImageNet)
+  - 121 layers with dense connections
+  - Each layer receives feature maps from all previous layers
+        │
+        ▼
+Global Average Pooling
+        │
+        ▼
+Fully Connected Layer → 2 classes
+        │
+        ▼
+Output: Normal (0) | Pneumonia (1)
+```
 
-Parameters
+---
 
-Metrics
+## 🔮 Roadmap
 
-Logged models
+- [ ] MLflow Model Registry (Staging → Production workflow)
+- [ ] FastAPI inference service (`/predict` endpoint)
+- [ ] Dockerized deployment
+- [ ] CI/CD pipeline integration
+- [ ] GPU training support
+- [ ] Dataset versioning (DVC)
+- [ ] Multi-class extension (Bacterial vs. Viral Pneumonia)
 
-📊 MLflow Tracking
+---
 
-The following are tracked automatically:
+## 📚 Dataset Reference
 
-Parameters
+**Chest X-Ray Images (Pneumonia)**  
+Source: [Kaggle — Paul Mooney](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)  
+Classes: `NORMAL` · `PNEUMONIA`
 
-Epochs
+---
 
-Batch size
+## 👨‍💻 Author
 
-Learning rate
+**Niru Sanathara**  
+AI/ML Engineer | Applied Scientist  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sanatharaniru/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/Niru-112)
 
-Metrics
+---
 
-Training loss
 
-Validation accuracy
 
-Artifacts
-
-Trained PyTorch model
-
-Model metadata
-
-🧪 Model Architecture
-
-Backbone: DenseNet121
-
-Input size: 224 × 224 × 3
-
-Loss: Cross-Entropy Loss
-
-Optimizer: Adam
-
-Task: Binary Classification (Normal vs Pneumonia)
-
-🧩 Why MLflow?
-
-This project uses MLflow Projects to:
-
-Ensure reproducible ML experiments
-
-Track multiple model versions
-
-Maintain clean separation of code and configuration
-
-Enable future deployment via MLflow Model Registry
-
-🔮 Future Enhancements
-
-Model Registry (Staging → Production)
-
-FastAPI inference service
-
-Dockerized deployment
-
-CI/CD integration
-
-GPU training support
-
-Dataset versioning
+<p align="center"><i>🏥 Applying deep learning and MLOps to make medical diagnostics more accessible.</i></p>
